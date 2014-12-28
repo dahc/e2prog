@@ -25,21 +25,96 @@ void mem_init();
 unsigned char mem_read(int addr);
 void mem_dump(int start, int end);
 void mem_write(int addr, unsigned char data);
-void mem_prog_grossblatt_test();
+void mem_prog_grossblatt_113();
+void mem_prog_grossblatt_116();
 
 int main()
 {
 	mem_init();
 	lcd_init();
-	mem_prog_grossblatt_test();
+	mem_prog_grossblatt_116();
 	mem_dump(0x0000, 0x0800); /* display the whole space */
 	mem_dump(0x07F0, 0x07F8); /* end back on the interesting part */
 
 	return 0;
 }
 
+/* write the 8255 test program from Grossblatt page 116 */
+void mem_prog_grossblatt_116()
+{
+	int addr = 0x00;
+
+	mem_write(addr++, 0xB0);
+	mem_write(addr++, 0x90);
+	mem_write(addr++, 0xE6);
+	mem_write(addr++, 0x03);
+	mem_write(addr++, 0xEB);
+	mem_write(addr++, 0x15);
+	mem_write(addr++, 0x90);
+	mem_write(addr++, 0xC7);
+	mem_write(addr++, 0x06);
+	mem_write(addr++, 0x00);
+	mem_write(addr++, 0x01);
+	mem_write(addr++, 0xFF);
+	mem_write(addr++, 0x3F);
+	mem_write(addr++, 0xFF);
+	mem_write(addr++, 0x0E);
+	mem_write(addr++, 0x00);
+
+	mem_write(addr++, 0x01);
+	mem_write(addr++, 0xE6);
+	mem_write(addr++, 0x01);
+	mem_write(addr++, 0x83);
+	mem_write(addr++, 0x3E);
+	mem_write(addr++, 0x00);
+	mem_write(addr++, 0x01);
+	mem_write(addr++, 0x00);
+	mem_write(addr++, 0x75);
+	mem_write(addr++, 0xF3);
+	mem_write(addr++, 0xC3);
+	mem_write(addr++, 0xB1);
+	mem_write(addr++, 0x02);
+	mem_write(addr++, 0xB0);
+	mem_write(addr++, 0x01);
+	mem_write(addr++, 0xE8);
+
+	mem_write(addr++, 0xE5);
+	mem_write(addr++, 0xFF);
+	mem_write(addr++, 0xF6);
+	mem_write(addr++, 0xE1);
+	mem_write(addr++, 0xE8);
+	mem_write(addr++, 0xE0);
+	mem_write(addr++, 0xFF);
+	mem_write(addr++, 0x3C);
+	mem_write(addr++, 0x80);
+	mem_write(addr++, 0x75);
+	mem_write(addr++, 0xF7);
+	mem_write(addr++, 0xF6);
+	mem_write(addr++, 0xF1);
+	mem_write(addr++, 0xE8);
+	mem_write(addr++, 0xD7);
+	mem_write(addr++, 0xFF);
+
+	mem_write(addr++, 0x3C);
+	mem_write(addr++, 0x02);
+	mem_write(addr++, 0x75);
+	mem_write(addr++, 0xF7);
+	mem_write(addr++, 0xEB);
+	mem_write(addr++, 0xE7);
+
+	while (addr < 0x07F0)
+		mem_write(addr++, 0x00);
+
+	mem_write(addr++, 0xE9);
+	mem_write(addr++, 0x0D);
+	mem_write(addr++, 0xF8);
+
+	while (addr < 0x0800)
+		mem_write(addr++, 0x00);
+}
+
 /* write the 8255 test program from Grossblatt page 113 */
-void mem_prog_grossblatt_test()
+void mem_prog_grossblatt_113()
 {
 	int addr;
 
